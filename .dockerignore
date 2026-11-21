@@ -1,0 +1,6 @@
+target/*
+!target/task-manager-1.0.0.jar
+.git
+.gitignore
+README.md
+k8s

@@ -1,0 +1,5 @@
+target/
+trivy-report.txt
+zap-reports/
+.DS_Store
+*.html
