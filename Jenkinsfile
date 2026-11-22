@@ -95,13 +95,13 @@ pipeline {
         stage('9. OWASP ZAP Dynamic Scan (DAST)') {
             steps {
                 script {
-                    def minikubeIp = sh(script: "minikube ip", returnStdout: true).trim()
+                    def minikubeIp = sh(script: "kubectl get nodes -o jsonpath='{.items[0].status.addresses[?(@.type=="InternalIP")].address}'", returnStdout: true).trim()
                     def targetUrl  = "http://${minikubeIp}:30080"
                     echo "Running OWASP ZAP Baseline Scan against ${targetUrl}"
                     sh """
                         mkdir -p zap-reports
                         chmod 777 zap-reports
-                        docker run --rm -v \$(pwd)/zap-reports:/zap/wrk/:rw ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t ${targetUrl} -r zap-report.html || true
+                        docker run --rm --network host -v \$(pwd)/zap-reports:/zap/wrk/:rw ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t ${targetUrl} -r zap-report.html || true
                     """
                 }
             }
