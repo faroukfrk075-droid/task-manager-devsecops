@@ -95,7 +95,7 @@ pipeline {
         stage('9. OWASP ZAP Dynamic Scan (DAST)') {
             steps {
                 script {
-                    def minikubeIp = sh(script: "kubectl get nodes -o jsonpath='{.items[0].status.addresses[?(@.type=="InternalIP")].address}'", returnStdout: true).trim()
+                    def minikubeIp = sh(script: "kubectl get nodes -o wide --no-headers | awk '{print \$6}'", returnStdout: true).trim()
                     def targetUrl  = "http://${minikubeIp}:30080"
                     echo "Running OWASP ZAP Baseline Scan against ${targetUrl}"
                     sh """
