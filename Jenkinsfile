@@ -57,7 +57,7 @@ pipeline {
         stage('6. Trivy Image Scan') {
             steps {
                 sh """
-                    trivy image --exit-code 0 --severity HIGH,CRITICAL --format table -o trivy-report.txt ${DOCKER_IMAGE}:${IMAGE_TAG}
+                    trivy image --timeout 15m --exit-code 0 --severity HIGH,CRITICAL --format table -o trivy-report.txt ${DOCKER_IMAGE}:${IMAGE_TAG}
                     cat trivy-report.txt
                 """
             }
