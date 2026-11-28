@@ -16,8 +16,7 @@ public class TaskController {
 
     public TaskController() {
         tasks.put(counter.get(), new Task(counter.getAndIncrement(), "Configurer le pipeline Jenkins", true));
-        tasks.put(counter.get(), new Task(counter.getAndIncrement(), "Scanner l'image avec Trivy", true));
-        tasks.put(3L, new Task(3L, "Déployer sur Minikube", true));
+        tasks.put(counter.get(), new Task(counter.getAndIncrement(), "Scanner l'image avec Trivy (CI OK)", false));
     }
 
     @GetMapping
